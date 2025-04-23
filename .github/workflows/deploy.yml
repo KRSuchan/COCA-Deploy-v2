@@ -23,6 +23,6 @@ jobs:
           script: |
             cd ~/COCA-Deploy-v2
             git pull origin main
-            docker compose pull
-            docker compose down
-            docker compose up -d
+            docker-compose pull
+            docker-compose down
+            docker-compose up -d
