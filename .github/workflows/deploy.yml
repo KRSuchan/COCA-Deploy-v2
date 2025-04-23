@@ -21,7 +21,7 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_PRIVATE_KEY }}
           script: |
-            cd ~/coca-deploy-v2
+            cd ~/COCA-Deploy-v2
             git pull origin main
             docker compose pull
             docker compose down
