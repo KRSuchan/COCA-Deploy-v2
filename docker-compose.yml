@@ -9,7 +9,7 @@ services:
     depends_on:
       - redis
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://${DB_ENDPOINT}:3306/{DB_NAME}?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul
+      SPRING_DATASOURCE_URL: jdbc:mysql://${DB_ENDPOINT}:3306/${DB_NAME}?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul
       SPRING_DATASOURCE_USERNAME: ${DB_USERNAME}
       SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
       SPRING_REDIS_HOST: ${REDIS_HOST}
