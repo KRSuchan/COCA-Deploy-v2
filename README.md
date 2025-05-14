@@ -2,7 +2,7 @@
   
 COCA 프로젝트의 배포를 위한 리포지토리입니다. 이 리포지토리는 CI/CD, Docker, EC2, Nginx 등을 통해 [백엔드(Spring Boot 기반)](https://github.com//KRSuchan/COCA-Backend-v2/)와 [프론트엔드(React 기반)](https://github.com//KRSuchan/COCA-Frontend-v2/)를 통합 배포하고 있습니다.  
 #### COCA 프로젝트 페이지 : [https://coca-project.site](https://coca-project.site)  
-version : 202505132013
+version : 202505141911
 
 ---
 
