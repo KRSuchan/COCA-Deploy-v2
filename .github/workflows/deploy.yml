@@ -31,6 +31,8 @@ jobs:
             echo "REDIS_HOST=${{ secrets.REDIS_HOST }}" >> .env
             echo "DB_NAME=${{ secrets.DB_NAME }}" >> .env
             echo "SPRING_CLOUD_AWS_S3_BUCKET=${{ secrets.SPRING_CLOUD_AWS_S3_BUCKET }}" >> .env
+            echo "SPRING_CLOUD_AWS_CREDENTIALS_ACCESS-KEY=${{ secrets.SPRING_CLOUD_AWS_CREDENTIALS_ACCESS_KEY }}" >> .env
+            echo "SPRING_CLOUD_AWS_CREDENTIALS_SECRET-KEY=${{ secrets.SPRING_CLOUD_AWS_CREDENTIALS_SECRET_KEY }}" >> .env
             echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> .env
             echo "REACT_APP_SERVER_URL=${{ secrets.REACT_APP_SERVER_URL }}" >> .env
             sudo docker-compose pull
