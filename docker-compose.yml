@@ -1,59 +1,61 @@
-version: '3.8'
+version: "3.8"
 
 services:
-  backend:
-    image: ${DOCKERHUB_USERNAME}/coca-backend-v2:${TAG}
-    container_name: coca-backend
-    ports:
-      - "8080:8080"
-    depends_on:
-      - redis
-    environment:
-      SERVER_PORT: 8080
-      SERVER_SSL_ENABLED: "false"
-      SPRING_DATASOURCE_URL: jdbc:mysql://${DB_ENDPOINT}:3306/${DB_NAME}?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul
-      SPRING_DATASOURCE_USERNAME: ${DB_USERNAME}
-      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
-      SPRING_DATA_REDIS_HOST: ${REDIS_HOST}
-      SPRING_DATA_REDIS_PORT: 6379
-      JWT_SECRET: ${JWT_SECRET}
-      SPRING_CLOUD_AWS_S3_BUCKET: ${SPRING_CLOUD_AWS_S3_BUCKET}
-      SPRING_CLOUD_AWS_S3_URL: "https://coca-attachments.s3.amazonaws.com/"
-      SPRING_CLOUD_AWS_CREDENTIALS_ACCESS_KEY: ${SPRING_CLOUD_AWS_CREDENTIALS_ACCESS_KEY}
-      SPRING_CLOUD_AWS_CREDENTIALS_SECRET_KEY: ${SPRING_CLOUD_AWS_CREDENTIALS_SECRET_KEY}
-      SPRING_JPA_HIBERNATE_DDL_AUTO: "none"
-      SPRING_JPA_PROPERTIES_HIBERNATE_SHOW_SQL: "true"
-      SPRING_JPA_PROPERTIES_HIBERNATE_FORMAT_SQL: "true"
-      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: "org.hibernate.dialect.MySQLDialect"
-      SPRING_SERVLET_MULTIPART_MAX-FILE-SIZE: "10MB"
-      SPRING_SERVLET_MULTIPART_MAX-REQUST-SIZE: "30MB"
-    restart: unless-stopped
+    backend:
+        image: ${DOCKERHUB_USERNAME}/coca-backend-v2:${TAG}
+        container_name: coca-backend
+        ports:
+            - "8080:8080"
+        depends_on:
+            - redis
+        environment:
+            SERVER_PORT: 8080
+            SERVER_SSL_ENABLED: "false"
+            SPRING_DATASOURCE_URL: jdbc:mysql://${DB_ENDPOINT}:3306/${DB_NAME}?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul
+            SPRING_DATASOURCE_USERNAME: ${DB_USERNAME}
+            SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+            SPRING_DATA_REDIS_HOST: ${REDIS_HOST}
+            SPRING_DATA_REDIS_PORT: 6379
+            JWT_SECRET: ${JWT_SECRET}
+            JWT_ACCESS_EXPIRATION_TIME: ${JWT_ACCESS_EXPIRATION_TIME}
+            JWT_REFRESH_EXPIRATION_TIME: ${JWT_REFRESH_EXPIRATION_TIME}
+            SPRING_CLOUD_AWS_S3_BUCKET: ${SPRING_CLOUD_AWS_S3_BUCKET}
+            SPRING_CLOUD_AWS_S3_URL: "https://coca-attachments.s3.amazonaws.com/"
+            SPRING_CLOUD_AWS_CREDENTIALS_ACCESS_KEY: ${SPRING_CLOUD_AWS_CREDENTIALS_ACCESS_KEY}
+            SPRING_CLOUD_AWS_CREDENTIALS_SECRET_KEY: ${SPRING_CLOUD_AWS_CREDENTIALS_SECRET_KEY}
+            SPRING_JPA_HIBERNATE_DDL_AUTO: "none"
+            SPRING_JPA_PROPERTIES_HIBERNATE_SHOW_SQL: "true"
+            SPRING_JPA_PROPERTIES_HIBERNATE_FORMAT_SQL: "true"
+            SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: "org.hibernate.dialect.MySQLDialect"
+            SPRING_SERVLET_MULTIPART_MAX-FILE-SIZE: "10MB"
+            SPRING_SERVLET_MULTIPART_MAX-REQUST-SIZE: "30MB"
+        restart: unless-stopped
 
-  redis:
-    image: redis:latest
-    container_name: redis
-    ports:
-      - "6379:6379"
-    volumes:
-      - redis-data:/data
-    restart: unless-stopped
+    redis:
+        image: redis:latest
+        container_name: redis
+        ports:
+            - "6379:6379"
+        volumes:
+            - redis-data:/data
+        restart: unless-stopped
 
-  frontend:
-    image: ${DOCKERHUB_USERNAME}/coca-frontend-v2:${TAG}
-    container_name: coca-frontend
-    ports:
-      - "80:80"
-    restart: always
-    networks:
-      - coca-network
-    depends_on:
-      - backend
-    environment:
-      REACT_APP_SERVER_URL: ${REACT_APP_SERVER_URL}
+    frontend:
+        image: ${DOCKERHUB_USERNAME}/coca-frontend-v2:${TAG}
+        container_name: coca-frontend
+        ports:
+            - "80:80"
+        restart: always
+        networks:
+            - coca-network
+        depends_on:
+            - backend
+        environment:
+            REACT_APP_SERVER_URL: ${REACT_APP_SERVER_URL}
 
 networks:
-  coca-network:
-    driver: bridge
+    coca-network:
+        driver: bridge
 
 volumes:
-  redis-data:
+    redis-data:
