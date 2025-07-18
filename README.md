@@ -4,7 +4,7 @@ COCA 프로젝트의 배포를 위한 리포지토리입니다. 이 리포지토
 
 #### COCA 프로젝트 페이지 : [https://coca-project.site](https://coca-project.site)
 
-version : 202507171953
+version : 202507181803
 
 ---
 
