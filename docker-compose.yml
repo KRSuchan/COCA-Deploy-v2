@@ -27,8 +27,10 @@ services:
             SPRING_JPA_PROPERTIES_HIBERNATE_SHOW_SQL: "true"
             SPRING_JPA_PROPERTIES_HIBERNATE_FORMAT_SQL: "true"
             SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: "org.hibernate.dialect.MySQLDialect"
+            SPRING_JPA_GENERATE_DDL: "false"
             SPRING_SERVLET_MULTIPART_MAX-FILE-SIZE: "10MB"
             SPRING_SERVLET_MULTIPART_MAX-REQUST-SIZE: "30MB"
+            MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: "health,info,prometheus"
         restart: unless-stopped
         networks:
             - coca-network
