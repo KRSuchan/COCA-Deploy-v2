@@ -30,6 +30,8 @@ services:
             SPRING_SERVLET_MULTIPART_MAX-FILE-SIZE: "10MB"
             SPRING_SERVLET_MULTIPART_MAX-REQUST-SIZE: "30MB"
         restart: unless-stopped
+        networks:
+            - coca-network
 
     redis:
         image: redis:latest
@@ -39,6 +41,8 @@ services:
         volumes:
             - redis-data:/data
         restart: unless-stopped
+        networks:
+            - coca-network
 
     frontend:
         image: ${DOCKERHUB_USERNAME}/coca-frontend-v2:${TAG}
@@ -54,9 +58,37 @@ services:
             REACT_APP_SERVER_URL: ${REACT_APP_SERVER_URL}
             REACT_APP_VERSION: ${REACT_APP_VERSION}
 
+    prometheus:
+        image: prom/prometheus
+        container_name: prometheus
+        ports:
+            - "9090:9090"
+        volumes:
+            - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+            - prometheus-data:/prometheus
+        command: --config.file=/etc/prometheus/prometheus.yml --web.enable-lifecycle
+        restart: unless-stopped
+        networks:
+            - coca-network
+
+    grafana:
+        image: grafana/grafana
+        container_name: grafana
+        ports:
+            - "3000:3000"
+        volumes:
+            - grafana-data:/var/lib/grafana
+        depends_on:
+            - prometheus
+        restart: unless-stopped
+        networks:
+            - coca-network
+
 networks:
     coca-network:
         driver: bridge
 
 volumes:
     redis-data:
+    prometheus-data:
+    grafana-data:
