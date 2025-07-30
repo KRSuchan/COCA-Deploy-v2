@@ -23,24 +23,42 @@ jobs:
                   script: |
                       cd ~/COCA-Deploy-v2
                       git pull origin main
-                      echo "MONITORING_TOKEN=${{ secrets.MONITORING_TOKEN }}" > .env
+                      cat <<EOF > .env
+                      DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}
+                      TAG=${{ secrets.TAG }}
+                      DB_ENDPOINT=${{ secrets.DB_ENDPOINT }}
+                      DB_USERNAME=${{ secrets.DB_USERNAME }}
+                      DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+                      REDIS_HOST=${{ secrets.REDIS_HOST }}
+                      DB_NAME=${{ secrets.DB_NAME }}
+                      SPRING_CLOUD_AWS_S3_BUCKET=${{ secrets.SPRING_CLOUD_AWS_S3_BUCKET }}
+                      SPRING_CLOUD_AWS_CREDENTIALS_ACCESS_KEY=${{ secrets.SPRING_CLOUD_AWS_CREDENTIALS_ACCESS_KEY }}
+                      SPRING_CLOUD_AWS_CREDENTIALS_SECRET_KEY=${{ secrets.SPRING_CLOUD_AWS_CREDENTIALS_SECRET_KEY }}
+                      JWT_SECRET=${{ secrets.JWT_SECRET }}
+                      JWT_ACCESS_EXPIRATION_TIME=${{ secrets.JWT_ACCESS_EXPIRATION_TIME }}
+                      JWT_REFRESH_EXPIRATION_TIME=${{ secrets.JWT_REFRESH_EXPIRATION_TIME }}
+                      REACT_APP_SERVER_URL=${{ secrets.REACT_APP_SERVER_URL }}
+                      REACT_APP_VERSION=${{ github.event.head_commit.timestamp }}
+                      MONITORING_TOKEN=${{ secrets.MONITORING_TOKEN }}
+                      EOF
                       sed -i "s|__MONITORING_TOKEN__|${{ secrets.MONITORING_TOKEN }}|g" prometheus/prometheus.yml
                       sudo docker-compose pull
                       sudo docker-compose down
                       sudo docker-compose up -d
-        env:
-            DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-            TAG: ${{ secrets.TAG }}
-            DB_ENDPOINT: ${{ secrets.DB_ENDPOINT }}
-            DB_USERNAME: ${{ secrets.DB_USERNAME }}
-            DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-            REDIS_HOST: ${{ secrets.REDIS_HOST }}
-            DB_NAME: ${{ secrets.DB_NAME }}
-            SPRING_CLOUD_AWS_S3_BUCKET: ${{ secrets.SPRING_CLOUD_AWS_S3_BUCKET }}
-            SPRING_CLOUD_AWS_CREDENTIALS_ACCESS_KEY: ${{ secrets.SPRING_CLOUD_AWS_CREDENTIALS_ACCESS_KEY }}
-            SPRING_CLOUD_AWS_CREDENTIALS_SECRET_KEY: ${{ secrets.SPRING_CLOUD_AWS_CREDENTIALS_SECRET_KEY }}
-            JWT_SECRET: ${{ secrets.JWT_SECRET }}
-            JWT_ACCESS_EXPIRATION_TIME: ${{ secrets.JWT_ACCESS_EXPIRATION_TIME }}
-            JWT_REFRESH_EXPIRATION_TIME: ${{ secrets.JWT_REFRESH_EXPIRATION_TIME }}
-            REACT_APP_SERVER_URL: ${{ secrets.REACT_APP_SERVER_URL }}
-            REACT_APP_VERSION: ${{ github.event.head_commit.timestamp }}
+        # env:
+        #     DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+        #     TAG: ${{ secrets.TAG }}
+        #     DB_ENDPOINT: ${{ secrets.DB_ENDPOINT }}
+        #     DB_USERNAME: ${{ secrets.DB_USERNAME }}
+        #     DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        #     REDIS_HOST: ${{ secrets.REDIS_HOST }}
+        #     DB_NAME: ${{ secrets.DB_NAME }}
+        #     SPRING_CLOUD_AWS_S3_BUCKET: ${{ secrets.SPRING_CLOUD_AWS_S3_BUCKET }}
+        #     SPRING_CLOUD_AWS_CREDENTIALS_ACCESS_KEY: ${{ secrets.SPRING_CLOUD_AWS_CREDENTIALS_ACCESS_KEY }}
+        #     SPRING_CLOUD_AWS_CREDENTIALS_SECRET_KEY: ${{ secrets.SPRING_CLOUD_AWS_CREDENTIALS_SECRET_KEY }}
+        #     JWT_SECRET: ${{ secrets.JWT_SECRET }}
+        #     JWT_ACCESS_EXPIRATION_TIME: ${{ secrets.JWT_ACCESS_EXPIRATION_TIME }}
+        #     JWT_REFRESH_EXPIRATION_TIME: ${{ secrets.JWT_REFRESH_EXPIRATION_TIME }}
+        #     REACT_APP_SERVER_URL: ${{ secrets.REACT_APP_SERVER_URL }}
+        #     REACT_APP_VERSION: ${{ github.event.head_commit.timestamp }}
+        #     MONITORING_TOKEN: ${{ secrets.MONITORING_TOKEN}}
