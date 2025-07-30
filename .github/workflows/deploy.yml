@@ -23,6 +23,7 @@ jobs:
                   script: |
                       cd ~/COCA-Deploy-v2
                       git pull origin main
+                      echo "MONITORING_TOKEN=${{ secrets.MONITORING_TOKEN }}" > .env
                       sed -i "s|__MONITORING_TOKEN__|${{ secrets.MONITORING_TOKEN }}|g" prometheus/prometheus.yml
                       sudo docker-compose pull
                       sudo docker-compose down
