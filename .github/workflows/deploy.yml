@@ -44,4 +44,3 @@ jobs:
             JWT_REFRESH_EXPIRATION_TIME: ${{ secrets.JWT_REFRESH_EXPIRATION_TIME }}
             REACT_APP_SERVER_URL: ${{ secrets.REACT_APP_SERVER_URL }}
             REACT_APP_VERSION: ${{ github.event.head_commit.timestamp }}
-            MONITORING_TOKEN: ${{ secrets.MONITORING_TOKEN}}
