@@ -31,6 +31,7 @@ services:
             SPRING_SERVLET_MULTIPART_MAX-FILE-SIZE: "10MB"
             SPRING_SERVLET_MULTIPART_MAX-REQUST-SIZE: "30MB"
             MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: "health,info,prometheus"
+            MONITORING_TOKEN: ${MONITORING_TOKEN}
         restart: unless-stopped
         networks:
             - coca-network
