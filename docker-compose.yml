@@ -30,7 +30,11 @@ services:
             SPRING_JPA_GENERATE_DDL: "false"
             SPRING_SERVLET_MULTIPART_MAX-FILE-SIZE: "10MB"
             SPRING_SERVLET_MULTIPART_MAX-REQUST-SIZE: "30MB"
-            MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: "health, info, prometheus"
+            MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: "health, prometheus"
+            MANAGEMENT_METRICS_DISTRIBUTION_PERCENTILES-HISTOGRAM_HTTP_SERVER_REQUESTS: "false"
+            MANAGEMENT_METRICS_TAGS_URI: "none"
+            MANAGEMENT_METRICS_TAGS_EXCEPTION: "none"
+            MANAGEMENT_METRICS_TAGS_STATUS: "none"
             MONITORING_TOKEN: ${MONITORING_TOKEN}
         restart: unless-stopped
         networks:
