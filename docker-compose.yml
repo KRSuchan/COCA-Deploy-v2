@@ -37,6 +37,11 @@ services:
             MANAGEMENT_METRICS_TAGS_STATUS: "none"
             MONITORING_TOKEN: ${MONITORING_TOKEN}
         restart: unless-stopped
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "10m"
+                max-file: "3"
         networks:
             - coca-network
 
@@ -48,6 +53,11 @@ services:
         volumes:
             - redis-data:/data
         restart: unless-stopped
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "10m"
+                max-file: "3"
         networks:
             - coca-network
 
@@ -64,6 +74,11 @@ services:
         environment:
             REACT_APP_SERVER_URL: ${REACT_APP_SERVER_URL}
             REACT_APP_VERSION: ${REACT_APP_VERSION}
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "10m"
+                max-file: "3"
 
     prometheus:
         image: prom/prometheus
@@ -77,6 +92,11 @@ services:
         restart: unless-stopped
         depends_on:
             - backend
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "10m"
+                max-file: "3"
         networks:
             - coca-network
 
@@ -90,6 +110,11 @@ services:
         depends_on:
             - prometheus
         restart: unless-stopped
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "10m"
+                max-file: "3"
         networks:
             - coca-network
 
